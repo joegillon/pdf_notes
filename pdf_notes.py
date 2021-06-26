@@ -21,9 +21,14 @@ def do_file(pdf):
         abs_path = '%s\n\n' % os.path.abspath(pdf)
         rpt.write(abs_path)
 
-        # Pycharm can't see fitz.open
-        # noinspection PyUnresolvedReferences
-        doc = fitz.open(pdf)
+        try:
+            # Pycharm can't see fitz.open
+            # noinspection PyUnresolvedReferences
+            doc = fitz.open(pdf)
+        except:
+            msg = '%s is not a PDF!' % abs_path
+            rpt_box.insert(END, msg)
+            return
 
         for page in doc:
             notes = []
